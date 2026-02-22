@@ -2,11 +2,18 @@ package me.hiresh.betteradventuremode;
 
 //Events
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 
 //Minecraft Imports
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 
 public class Common {
     public static void Register() {
@@ -27,5 +34,64 @@ public class Common {
             return true;
         });
 
+        UseBlockCallback.EVENT.register((playerEntity, world, hand, blockHitResult) -> {
+            //Empty & Non-main Hand early return
+            if (hand != Hand.MAIN_HAND) return ActionResult.PASS;
+
+            var stack = playerEntity.getMainHandStack();
+            if (stack.isEmpty()) return  ActionResult.PASS;
+
+            //Allowed item
+
+            BlockState placing = null;
+            try {
+                placing = ((BlockItem) stack.getItem()).getBlock().getDefaultState();
+            } catch (ClassCastException e){
+                return ActionResult.PASS;
+            }
+
+            if ( !(placing.isOf(Blocks.CRAFTING_TABLE)
+                    //Furnaces
+                    || placing.isOf(Blocks.FURNACE)
+                    || placing.isOf(Blocks.BLAST_FURNACE)
+                    || placing.isOf(Blocks.SMOKER)
+                    //Beds
+                    || placing.isIn(BlockTags.BEDS)
+                    //Campfire
+                    || placing.isOf(Blocks.CAMPFIRE)
+                    || placing.isOf(Blocks.SOUL_CAMPFIRE)
+                    //Lighting
+                    || placing.isOf(Blocks.TORCH)
+                    || placing.isOf(Blocks.LANTERN)
+                    //Chests
+                    || placing.isOf(Blocks.CHEST)
+                    || placing.isOf(Blocks.BARREL)
+                    //Obsidian
+                    || placing.isOf(Blocks.OBSIDIAN)
+                    //Climbing
+                    || placing.isOf(Blocks.LADDER)
+                    || placing.isOf(Blocks.SCAFFOLDING)
+                    //Farmable
+                    || placing.isOf(Blocks.WHEAT)
+                    || placing.isOf(Blocks.POTATOES)
+                    || placing.isOf(Blocks.CARROTS)
+                    || placing.isOf(Blocks.BEETROOTS)
+                    || placing.isOf(Blocks.PUMPKIN_STEM)
+                    || placing.isOf(Blocks.SUGAR_CANE)
+                    || placing.isOf(Blocks.SWEET_BERRY_BUSH)
+                    || placing.isOf(Blocks.CACTUS)
+                    || placing.isOf(Blocks.KELP)
+                    || placing.isOf(Blocks.NETHER_WART)
+                    || placing.isOf(Blocks.MELON_STEM)
+                    || placing.isOf(Blocks.CAKE)
+            ))
+
+            {
+                playerEntity.sendMessage(Text.literal("You cannot place this block."), true);
+                return ActionResult.FAIL;
+            }
+
+            return ActionResult.PASS;
+        });
     }
 }
