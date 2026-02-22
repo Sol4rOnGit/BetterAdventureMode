@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "betteradventuremode",
+  "version": "${version}",
+  "name": "BetterAdventureMode",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/betteradventuremode/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "me.hiresh.betteradventuremode.client.BetteradventuremodeDataGenerator"
+    ],
+    "client": [
+      "me.hiresh.betteradventuremode.client.BetteradventuremodeClient"
+    ],
+    "main": [
+      "me.hiresh.betteradventuremode.Betteradventuremode"
+    ]
+  },
+  "mixins": [
+    "betteradventuremode.mixins.json",
+    {
+      "config": "betteradventuremode.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
