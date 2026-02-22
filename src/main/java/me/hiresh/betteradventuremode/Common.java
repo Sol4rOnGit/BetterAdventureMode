@@ -2,7 +2,6 @@ package me.hiresh.betteradventuremode;
 
 //Events
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
-import net.fabricmc.fabric.api.event.player.
 
 //Minecraft Imports
 import net.minecraft.item.ItemStack;
