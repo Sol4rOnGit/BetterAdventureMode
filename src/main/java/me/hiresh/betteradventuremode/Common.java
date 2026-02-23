@@ -63,14 +63,22 @@ public class Common {
                     //Lighting
                     || placing.isOf(Blocks.TORCH)
                     || placing.isOf(Blocks.LANTERN)
-                    //Chests
+                    //Storage
                     || placing.isOf(Blocks.CHEST)
                     || placing.isOf(Blocks.BARREL)
+                    || placing.isIn(BlockTags.SHULKER_BOXES)
+                    || placing.isOf(Blocks.ENDER_CHEST)
                     //Obsidian
                     || placing.isOf(Blocks.OBSIDIAN)
                     //Climbing
                     || placing.isOf(Blocks.LADDER)
                     || placing.isOf(Blocks.SCAFFOLDING)
+                    //Other Utility
+                    || placing.isOf(Blocks.ANVIL)
+                    || placing.isOf(Blocks.ENCHANTING_TABLE)
+                    || placing.isOf(Blocks.BOOKSHELF)
+                    || placing.isOf(Blocks.SMITHING_TABLE)
+                    || placing.isOf(Blocks.GRINDSTONE)
                     //Farmable
                     || placing.isOf(Blocks.WHEAT)
                     || placing.isOf(Blocks.POTATOES)
