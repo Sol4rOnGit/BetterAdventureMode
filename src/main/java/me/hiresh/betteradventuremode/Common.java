@@ -14,6 +14,9 @@ import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.dimension.DimensionTypes;
 
 public class Common {
     public static void Register() {
@@ -92,7 +95,12 @@ public class Common {
                     || placing.isOf(Blocks.NETHER_WART)
                     || placing.isOf(Blocks.MELON_STEM)
                     || placing.isOf(Blocks.CAKE)
+
+                    //Dimension Specific
+                    //Netherrack in nether
+                    || (placing.isOf(Blocks.NETHERRACK) && (world.getRegistryKey() == World.NETHER))
             ))
+
 
             {
                 playerEntity.sendMessage(Text.literal("You cannot place this block."), true);
