@@ -3,6 +3,7 @@ package me.hiresh.betteradventuremode.mixin;
 //Mixin Imports
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -31,11 +32,16 @@ public class PlayerEntityMixin {
                 || blockState.isIn(BlockTags.HOE_MINEABLE))
                 //Exclude Ores
                 && !(blockState.isIn(BlockTags.COAL_ORES)
-                || blockState.isIn(BlockTags.DIAMOND_ORES)
-                || blockState.isIn(BlockTags.GOLD_ORES)
-                || blockState.isIn(BlockTags.IRON_ORES)
-                || blockState.isIn(BlockTags.REDSTONE_ORES)
-                || blockState.isIn(BlockTags.LAPIS_ORES));
+                        || blockState.isIn(BlockTags.COPPER_ORES)
+                        || blockState.isIn(BlockTags.DIAMOND_ORES)
+                        || blockState.isIn(BlockTags.GOLD_ORES)
+                        || blockState.isIn(BlockTags.IRON_ORES)
+                        || blockState.isIn(BlockTags.REDSTONE_ORES)
+                        || blockState.isIn(BlockTags.LAPIS_ORES)
+                )
+                //Exclude deepslate
+                && !(blockState.isOf(Blocks.DEEPSLATE));
+                ;
 
         if (applicable){
             return  originalSpeed / 10f; //slower (Change the number to change divisor)
